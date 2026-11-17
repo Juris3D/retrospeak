@@ -6,6 +6,12 @@ of a 1987 that never happened.
 
 Made for Thunder Owl's games (ThunderVelocity's cockpit voice) - but it's a tool of its own.
 
+## Download
+
+**[release/RetroSpeak.exe](release/RetroSpeak.exe)** - the app (Windows, one file, no install) - or
+**[release/RetroSpeak_v1.0.zip](release/RetroSpeak_v1.0.zip)** with this README and sample WAVs.
+(Windows may warn about an unsigned app: SmartScreen - *More info* - *Run anyway*.)
+
 ## Use it
 
 **The window** - run `RetroSpeak.exe`:
