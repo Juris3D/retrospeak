@@ -1,0 +1,45 @@
+# RetroSpeak - a RELEASE: built on GitHub, published as a GitHub Release.
+# Runs when VERSION changes on main (or by hand: Actions > Release > Run workflow). The tag is v + VERSION.
+name: Release
+on:
+  push:
+    branches: [main]
+    paths: [VERSION]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tools (MinGW-w64)
+        run: sudo apt-get update && sudo apt-get install -y g++-mingw-w64-x86-64 binutils-mingw-w64-x86-64 zip
+      - name: Build
+        run: |
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix || true
+          ./build.sh
+      - name: Package
+        run: |
+          V=$(cat VERSION)
+          echo "V=$V" >> $GITHUB_ENV
+          mkdir -p dist/RetroSpeak && cp build/RetroSpeak.exe README.md dist/RetroSpeak/ && cp -r samples dist/RetroSpeak/
+          (cd dist && zip -qr RetroSpeak_v$V.zip RetroSpeak)
+          cp build/RetroSpeak.exe dist/RetroSpeak.exe
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.V }}
+          name: RetroSpeak v${{ env.V }}
+          body: |
+            An early-80s style speech synthesiser for Windows - type English, hear a talking computer of 1982 (SAM / Votrax / Speak & Spell style), save it as a WAV.
+
+            - **RetroSpeak.exe** - the app alone (one file, no install, no DLLs)
+            - **RetroSpeak_v${{ env.V }}.zip** - the app + README + sample WAVs
+
+            Engines: **1982 speech chip** and **Retro-future** (fictional). Male / female robot, pitch, speed, bits; phonemes shown and editable.
+            Command line: `RetroSpeak.exe "text" -o out.wav [--female] [--future]` (`--help`).
+            Windows may warn about an unsigned app (SmartScreen: More info > Run anyway).
+          files: |
+            dist/RetroSpeak.exe
+            dist/RetroSpeak_v${{ env.V }}.zip

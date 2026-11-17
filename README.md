@@ -8,9 +8,9 @@ Made for Thunder Owl's games (ThunderVelocity's cockpit voice) - but it's a tool
 
 ## Download
 
-**[release/RetroSpeak.exe](release/RetroSpeak.exe)** - the app (Windows, one file, no install) - or
-**[release/RetroSpeak_v1.0.zip](release/RetroSpeak_v1.0.zip)** with this README and sample WAVs.
-(Windows may warn about an unsigned app: SmartScreen - *More info* - *Run anyway*.)
+**[Releases](https://github.com/Juris3D/retrospeak/releases/latest)** - `RetroSpeak.exe` (Windows, one file, no install) or the zip
+with this README and sample WAVs. (Windows may warn about an unsigned app: SmartScreen - *More info* - *Run anyway*.)
+A new release is built and published by GitHub itself (`.github/workflows/release.yml`) when `VERSION` changes.
 
 ## Use it
 
